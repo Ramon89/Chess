@@ -14,7 +14,7 @@ abstract class AbstractMove(val locationTransitions: List[LocationTransition]) {
   /**
    * Checks if a move is valid on the given board. A move is valid if all constraints are met.
    */
-  def isValid(b: Board): Boolean = constraints.forall(constraint => constraint.apply(b, this))
+  def isValid(b: Board): Boolean = constraints.forall(constraint => constraint.apply(b, this)) && validate(b)
   
   // TODO instead of isValid that returns true/false, create method that returns which constraint makes this move invalid.
   
@@ -22,10 +22,15 @@ abstract class AbstractMove(val locationTransitions: List[LocationTransition]) {
    * Executes this move if it is valid, otherwise an InvalidMoveException is thrown.
    */
   // TODO: not the board should be given, but the game instance. the current board can be asked from the game.
-  def apply(b: Board) = if(isValid(b)) doApply(b) else throw new InvalidMoveException("This move is not valid") // TODO use I18N
+//  def apply(b: Board) = if(isValid(b)) doApply(b) else throw new InvalidMoveException("This move is not valid") // TODO use I18N
     
   /**
    * This method actually performs the move.
    */
-  protected def doApply(b: Board)
+//  protected def doApply(b: Board)
+  
+  /**
+   * Returns whether this move is valid.
+   */
+  protected def validate(b: Board): Boolean
 }

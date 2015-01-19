@@ -61,6 +61,8 @@ class DefaultBoard(pieces: HashMap[Location, AbstractPiece]) extends Board {
   
   override def getPieces = pieces
   
+  override def getLocations = locations.toList
+  
   override def isValidLocation(l: Location) = locations.contains(l)
   
   override def newInstance(pieces: HashMap[Location, AbstractPiece]) = new DefaultBoard(pieces)

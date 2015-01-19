@@ -1,32 +1,23 @@
 package nl.axians.chess.unit.pieces
 
 import org.scalatest.FlatSpec
-import nl.axians.chess.Location
 import nl.axians.chess.game.DefaultBoard
-import nl.axians.chess.game.InvalidLocationException
-import nl.axians.chess.game.InvalidMoveException
+import nl.axians.chess.movement.PawnMove
+import nl.axians.chess.pieces.Pawn
+import nl.axians.chess.Color._
+import nl.axians.chess.Location
 
 class PawnTest extends FlatSpec {
 
-  /*"A pawn" should "allow moving a piece" in {
+  "A pawn" should "be able to move a single step" in {
     val b = new DefaultBoard
-    b.movePiece(Location('A', 1), Location('A', 2))
+    
+    assert(new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 3)).isValid(b))
+    assert(new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 4)).isValid(b))
+    assert(!new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 5)).isValid(b))
+    
+    assert(new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 6)).isValid(b))
+    assert(new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 5)).isValid(b))
+    assert(!new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 4)).isValid(b))    
   }
-
-  it should "produce InvalidLocationException if either the 'from' or the 'to' location is not valid" in {
-	val b = new DefaultBoard
-    intercept[InvalidLocationException] {
-      b.movePiece(Location('A', 1), Location('A', -1))
-    }
-    intercept[InvalidLocationException] {
-      b.movePiece(Location('A', -1), Location('A', 1))
-    }
-  }
-  
-  it should "produce InvalidMoveException if there is no piece at the 'from' location" in {
-	val b = new DefaultBoard
-    intercept[InvalidMoveException] {
-      b.movePiece(Location('A', 3), Location('A', 4))
-    }
-  }*/
 }
