@@ -7,7 +7,6 @@ import Math.min
 import nl.axians.chess.pieces.Rook
 
 class RookMove(rook: Rook, from: Location, to: Location) extends RegularMove(from, to) {
-
   override def validate(b: Board) =
     deltaX != deltaY && min(deltaX, deltaY) == 0 && b.getOccupiedLocationsBetween(from, to) == Nil
 }

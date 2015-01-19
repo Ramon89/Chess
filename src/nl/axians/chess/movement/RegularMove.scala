@@ -20,4 +20,5 @@ with LocationsAreValid {
   protected val deltaY = to.y - from.y
   
 // TODO: add default constraint that no piece can be in between the positions
+  // TODO add default constraint that the locations cannot be identical
 }
