@@ -6,7 +6,7 @@ import nl.axians.chess.Color._
 import nl.axians.chess.pieces.Pawn
 
 object Start extends App {
-  val b = new DefaultBoard
+  /*val b = new DefaultBoard
   val m1 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 3))
   val m2 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 4))
   val m3 = new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 6))
@@ -21,5 +21,5 @@ object Start extends App {
   println(m3.isValid(b))
   println(m4.isValid(b))
   println(m5.isValid(b))
-  println(m6.isValid(b))
+  println(m6.isValid(b))*/
 }

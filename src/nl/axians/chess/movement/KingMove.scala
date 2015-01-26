@@ -6,8 +6,9 @@ import nl.axians.chess.Location
 import nl.axians.chess.game.Board
 import nl.axians.chess.pieces.King
 import nl.axians.chess.pieces.Queen
+import nl.axians.chess.Color._
 
-class KingMove(king: King, from: Location, to: Location) extends RegularMove(from, to) {
+class KingMove(c: Color, from: Location, to: Location) extends RegularMove(c, from, to) {
   override def validate(b: Board) =
-    max(abs(deltaX), abs(deltaY)) == 1 && new QueenMove(Queen(king.color), from, to).validate(b)
+    max(abs(deltaX), abs(deltaY)) == 1 && new QueenMove(c, from, to).validate(b)
 }

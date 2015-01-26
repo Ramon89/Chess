@@ -12,12 +12,12 @@ class PawnTest extends FlatSpec {
   "A pawn" should "be able to move a single step" in {
     val b = new DefaultBoard
     
-    assert(new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 3)).isValid(b))
-    assert(new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 4)).isValid(b))
-    assert(!new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 5)).isValid(b))
+    assert(new PawnMove(WHITE, Location('A', 2), Location('A', 3)).isValid(b))
+    assert(new PawnMove(WHITE, Location('A', 2), Location('A', 4)).isValid(b))
+    assert(!new PawnMove(WHITE, Location('A', 2), Location('A', 5)).isValid(b))
     
-    assert(new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 6)).isValid(b))
-    assert(new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 5)).isValid(b))
-    assert(!new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 4)).isValid(b))    
+    assert(new PawnMove(BLACK, Location('A', 7), Location('A', 6)).isValid(b))
+    assert(new PawnMove(BLACK, Location('A', 7), Location('A', 5)).isValid(b))
+    assert(!new PawnMove(BLACK, Location('A', 7), Location('A', 4)).isValid(b))    
   }
 }

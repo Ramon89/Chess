@@ -6,7 +6,7 @@ import nl.axians.chess.game.Board
 import nl.axians.chess.Color._
 import nl.axians.chess.pieces.Knight
 
-class KnightMove(knight: Knight, from: Location, to: Location) extends RegularMove(from, to) {
+class KnightMove(c: Color, from: Location, to: Location) extends RegularMove(c, from, to) {
   
   override def validate(b: Board) = {    
     val absDeltaX = Math.abs(deltaX)
@@ -14,7 +14,7 @@ class KnightMove(knight: Knight, from: Location, to: Location) extends RegularMo
     val validMove = (absDeltaX == 1 && absDeltaY == 2) || (absDeltaX == 2 && absDeltaY == 1)
     b.getPieceAt(to) match {
       case None        => validMove
-      case Some(piece) => piece.color != knight.color && validMove
+      case Some(piece) => piece.color != c && validMove
     }
   }
     

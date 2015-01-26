@@ -14,8 +14,8 @@ class KnightTest extends FlatSpec {
   "A knight" should "be able to move a single step" in {
     val b = new DefaultBoard
     
-    assert(new KnightMove(new Knight(WHITE), Location('B', 1), Location('C', 3)).isValid(b))
-    assert(new KnightMove(new Knight(WHITE), Location('B', 1), Location('A', 3)).isValid(b))
-    assert(!new KnightMove(new Knight(WHITE), Location('B', 1), Location('B', 3)).isValid(b))
+    assert(new KnightMove(WHITE, Location('B', 1), Location('C', 3)).isValid(b))
+    assert( new KnightMove(WHITE, Location('B', 1), Location('A', 3)).isValid(b))
+    assert(!new KnightMove(WHITE, Location('B', 1), Location('B', 3)).isValid(b))
   }
 }

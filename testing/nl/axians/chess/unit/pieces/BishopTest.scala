@@ -20,11 +20,11 @@ class BishopTest extends FlatSpec {
     var b: Board = new DefaultBoard
     
     // A pawn is in the way.
-    assert(!new BishopMove(new Bishop(WHITE), Location('C', 1), Location('A', 3)).isValid(b))
+    assert(!new BishopMove(WHITE, Location('C', 1), Location('A', 3)).isValid(b))
     // Move the pawn far away to make room for the bishop.
     b = b.movePiece(Location('B', 2), Location('H', 3))
     // The move should now be valid
-    assert(new BishopMove(new Bishop(WHITE), Location('C', 1), Location('A', 3)).isValid(b))
+    assert(new BishopMove(WHITE, Location('C', 1), Location('A', 3)).isValid(b))
     b = b.movePiece(Location('C', 1), Location('A', 3))
     // Straight lines are invalid.
 //    assert(!new BishopMove(new Bishop(WHITE), Location('A', 3), Location('A', 4)).isValid(b))

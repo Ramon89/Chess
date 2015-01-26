@@ -20,17 +20,17 @@ class QueenTest extends FlatSpec {
     var b: Board = new DefaultBoard
     
     // A pawn is in the way.
-    assert(!new QueenMove(new Queen(WHITE), Location('D', 1), Location('A', 4)).isValid(b))
+    assert(!new QueenMove(WHITE, Location('D', 1), Location('A', 4)).isValid(b))
     // Move the pawn far away to make room for the queen.
     b = b.movePiece(Location('C', 2), Location('H', 3))
     // The move should now be valid
-    assert(new QueenMove(new Queen(WHITE), Location('D', 1), Location('A', 4)).isValid(b))
+    assert(new QueenMove(WHITE, Location('D', 1), Location('A', 4)).isValid(b))
   }
   
   it should "be able to move in straight lines as well" in {
     var b: Board = new DefaultBoard
     // Move the queen to another location.
     b = b.movePiece(Location('D', 1), Location('A', 4))
-    assert(new QueenMove(new Queen(WHITE), Location('A', 4), Location('E', 4)).isValid(b))
+    assert(new QueenMove(WHITE, Location('A', 4), Location('E', 4)).isValid(b))
   }
 }
