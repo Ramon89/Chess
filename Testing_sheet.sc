@@ -22,10 +22,11 @@ object Testing_sheet {
   val pawnMove = new PawnMove(pawn, Location('A', 2), Location('A', 4))
                                                   //> pawnMove  : nl.axians.chess.movement.PawnMove = nl.axians.chess.movement.Paw
                                                   //| nMove@520a3426
-  pawnMove.isValid(b)                             //> res0: Boolean = false
+  pawnMove.isValid(b)                             //> res0: Boolean = true
   
   
- 
+  Location('C', 3) isBetween (Location('D', 1), Location('A', 4))
+                                                  //> res1: Boolean = true
 
   println("Welcome to the Scala worksheet")       //> Welcome to the Scala worksheet
 }
