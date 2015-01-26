@@ -4,41 +4,33 @@ import Math.min
 import Math.max
 import Math.abs
 import nl.axians.chess.game.Board
+import scala.annotation.tailrec
 
 /**
  * A Location represents a position on a board, e.g. A1 (which would be bottom-left).
  */
 case class Location(val x: Char, val y: Int) {
   
-  def isBetween(first: Location, second: Location) = {
-    def isBetween(i1: Int, i2: Int, i3: Int) =
-      i1 > min(i2, i3) && i1 < max(i2, i3)
-    val absDeltaX = abs(second.x - first.x)
-    val absDeltaY = abs(second.y - first.y)
+  /**
+   * Returns whether this instance is between the given two locations.
+   */
+  @tailrec
+  final def isBetween(first: Location, second: Location): Boolean = {
+    val deltaX = second.x - first.x
+    val deltaY = second.y - first.y
+    val absDeltaX = abs(deltaX)
+    val absDeltaY = abs(deltaY)
+    val singleStepX = if(deltaX == 0) 0 else deltaX / absDeltaX
+    val singleStepY = if(deltaY == 0) 0 else deltaY / absDeltaY
+    val steppedLocation = Location((first.x + singleStepX).toChar, first.y + singleStepY)
     
-    if(absDeltaX != absDeltaY && absDeltaX != 0 && absDeltaY != 0)  
-      false
-    else if(absDeltaX == absDeltaY)
-      isBetween(x, first.x, second.x) && isBetween(y, first.y, second.y)
-    else if(absDeltaX == 0)
-      x == first.x && isBetween(y, first.y, second.y)
+    if(first == second || this == first || this == second)
+      false // There can be nothing between one and the same location.
+    else if(absDeltaX != absDeltaY && min(absDeltaX, absDeltaY) != 0)  
+      false // The two locations are not in a straight/diagonal line.
+    else if(this == steppedLocation)
+      true
     else
-      y == first.y && isBetween(x, first.x, second.x)
+      isBetween(steppedLocation, second)
   }
-  
-  // TODO move to board?
-//  def getLocationsBetween(that: Location, b: Board): List[Location] = {
-//    for {
-//      l <- b.getLocations
-//      if l isBetween (this, that)
-//    } yield l
-//  }
-//  
-//  def getLocationsBetween(that: Location, b: Board, lambda: Location => Boolean): List[Location] =
-//    for{
-//      l <- getLocationsBetween(that, b)
-//      if lambda(l)
-//    } yield l
-//    
-//  def getOccupiedLocationsBetween(that: Location, b: Board) = getLocationsBetween(that, b, l => !b.isEmpty(l))
 }
