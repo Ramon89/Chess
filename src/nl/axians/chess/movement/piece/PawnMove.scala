@@ -1,13 +1,14 @@
-package nl.axians.chess.movement
+package nl.axians.chess.movement.piece
 
 import nl.axians.chess.Location
-import nl.axians.chess.pieces.Pawn
 import nl.axians.chess.game.Board
 import nl.axians.chess.Color._
+import nl.axians.chess.movement.RegularMove
+import nl.axians.chess.movement.SinglePiece
 
-class PawnMove(c: Color, from: Location, to: Location) extends RegularMove(c, from, to) {
+class PawnMove(c: Color, b: Board, from: Location, to: Location) extends RegularMove(c, b, from, to) with SinglePiece {
   
-  override def validate(b: Board) = {
+  override def validate = {
     var result = false
     
     // This value is used to fix the direction, i.e. white moves forwards while black moves backwards.

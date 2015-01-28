@@ -2,7 +2,7 @@ package nl.axians.chess.game
 
 import nl.axians.chess.Location
 import scala.collection.immutable.HashMap
-import nl.axians.chess.pieces.AbstractPiece
+import nl.axians.chess.AbstractPiece
 
 /**
  * 

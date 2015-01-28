@@ -2,14 +2,14 @@ package nl.axians.chess.game
 
 import nl.axians.chess.Location
 import nl.axians.chess.Color._
-import nl.axians.chess.pieces.AbstractPiece
-import nl.axians.chess.pieces.Rook
-import nl.axians.chess.pieces.Knight
-import nl.axians.chess.pieces.Bishop
-import nl.axians.chess.pieces.King
-import nl.axians.chess.pieces.Queen
-import nl.axians.chess.pieces.Pawn
 import scala.collection.immutable.HashMap
+import nl.axians.chess.AbstractPiece
+import nl.axians.chess.Knight
+import nl.axians.chess.King
+import nl.axians.chess.Bishop
+import nl.axians.chess.Queen
+import nl.axians.chess.Rook
+import nl.axians.chess.Pawn
 
 /**
  * This class represents the default starting board of a regular chess game.

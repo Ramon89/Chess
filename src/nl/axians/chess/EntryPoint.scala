@@ -1,9 +1,8 @@
 package nl.axians.chess
 
 import nl.axians.chess.game.DefaultBoard
-import nl.axians.chess.movement.PawnMove
+import nl.axians.chess.movement.piece.PawnMove
 import nl.axians.chess.Color._
-import nl.axians.chess.pieces.Pawn
 
 object Start extends App {
   /*val b = new DefaultBoard

@@ -1,4 +1,4 @@
-package nl.axians.chess.pieces
+package nl.axians.chess
 
 import nl.axians.chess.Color._
 
