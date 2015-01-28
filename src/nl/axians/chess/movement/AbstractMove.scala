@@ -10,7 +10,15 @@ import nl.axians.chess.Color._
 
 abstract class AbstractMove(protected val color: Color, protected val board: Board) {
   
+  /**
+   * Returns whether this move is valid and can be executed.
+   */
   def isValid = defaultValidations.forall(function => function()) && validate
+  
+  /**
+   * Executes this move and returns the board that is the result of this move.
+   */
+  def execute: Board
   
   /**
    * Returns whether this move is valid.
@@ -20,10 +28,5 @@ abstract class AbstractMove(protected val color: Color, protected val board: Boa
   /**
    * Returns a list of functions that are to be called by default on validation.
    */
-  protected def defaultValidations: List[() => Boolean] = List(() => moveDoesNotCauseChess)
-
-  /**
-   * Returns true if the current move does not cause chess.
-   */
-  private def moveDoesNotCauseChess = true // TODO
+  protected def defaultValidations: List[() => Boolean] = Nil
 }

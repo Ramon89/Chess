@@ -10,7 +10,7 @@ import Math.max
 /**
  * This abstract class corresponds to a regular chess move where one or more pieces move to a different location.
  */
-abstract class RegularMove(color: Color, board: Board, val locationTransitions: List[LocationTransition]) 
+abstract class RegularMove(color: Color, board: Board, protected val locationTransitions: List[LocationTransition]) 
 extends AbstractMove(color, board) {
   
   def this(color: Color, board: Board, from: Location, to: Location) =
@@ -30,13 +30,23 @@ extends AbstractMove(color, board) {
         case None        => true // If no piece is on a location, all it well.
         case Some(piece) => piece.color != color // All is well only if there is an opponents piece on a location.
     })
-    
+
+  /**
+   * Returns true if the current move does not cause chess.
+   */
+  private def moveDoesNotCauseChess = true // TODO use execute to get the resulting board
+  
+  /**
+   * A regular move is executed by applying all location transitions (i.e. moving all pieces).
+   */
+  override def execute = locationTransitions.foldLeft(board)((b, lt) => b.movePiece(lt.from, lt.to))
+  
   /**
    * For all regular moves, all locations must be valid and the target locations must not be occupied by the same 
    * color.
    */
-  override def defaultValidations = 
-    (() => locationsAreValid)::(() => targetLocationsAreUnoccupied)::super.defaultValidations  
+  override def defaultValidations = (() => locationsAreValid)::(() => targetLocationsAreUnoccupied)::
+      (() => moveDoesNotCauseChess)::super.defaultValidations
 }
 
 /**
