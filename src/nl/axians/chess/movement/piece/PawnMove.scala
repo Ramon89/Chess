@@ -5,8 +5,9 @@ import nl.axians.chess.game.Board
 import nl.axians.chess.Color._
 import nl.axians.chess.movement.RegularMove
 import nl.axians.chess.movement.SinglePiece
+import nl.axians.chess.game.Game
 
-class PawnMove(c: Color, b: Board, from: Location, to: Location) extends RegularMove(c, b, from, to) with SinglePiece {
+class PawnMove(c: Color, b: Board, g: Game, from: Location, to: Location) extends RegularMove(c, b, g, from, to) with SinglePiece {
   
   override def validate = {
     var result = false

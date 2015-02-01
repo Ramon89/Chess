@@ -8,12 +8,19 @@ import nl.axians.chess.game.InvalidMoveException
 import nl.axians.chess.Color._
 
 
-abstract class AbstractMove(protected val color: Color, protected val board: Board) {
+abstract class AbstractMove(protected val color: Color, protected val board: Board, protected val game: Game) {
   
   /**
    * Returns whether this move is valid and can be executed.
    */
   def isValid = defaultValidations.forall(function => function()) && validate
+  
+  /**
+   * Returns a list of functions that are to be called by default on validation.
+   */
+  protected def defaultValidations: List[() => Boolean] = Nil
+  
+  /************************************************** ABSTRACT METHODS **************************************************/
   
   /**
    * Executes this move and returns the board that is the result of this move.
@@ -24,9 +31,4 @@ abstract class AbstractMove(protected val color: Color, protected val board: Boa
    * Returns whether this move is valid.
    */
   protected def validate: Boolean
-  
-  /**
-   * Returns a list of functions that are to be called by default on validation.
-   */
-  protected def defaultValidations: List[() => Boolean] = Nil
 }

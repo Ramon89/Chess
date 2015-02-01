@@ -8,8 +8,9 @@ import Math.max
 import Math.min
 import nl.axians.chess.movement.RegularMove
 import nl.axians.chess.movement.SinglePiece
+import nl.axians.chess.game.Game
 
-class KnightMove(c: Color, b: Board, from: Location, to: Location) extends RegularMove(c, b, from, to) with SinglePiece {
+class KnightMove(c: Color, b: Board, g: Game, from: Location, to: Location) extends RegularMove(c, b, g, from, to) with SinglePiece {
   
   override def validate = {    
     val absDeltaX = abs(deltaX)

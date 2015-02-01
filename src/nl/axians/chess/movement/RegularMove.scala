@@ -1,20 +1,20 @@
 package nl.axians.chess.movement
 
 import nl.axians.chess.Location
-//import nl.axians.chess.movement.constraints.LocationsAreValid
 import nl.axians.chess.Color._
 import nl.axians.chess.game.Board
 import Math.abs
 import Math.max
+import nl.axians.chess.game.Game
 
 /**
  * This abstract class corresponds to a regular chess move where one or more pieces move to a different location.
  */
-abstract class RegularMove(color: Color, board: Board, protected val locationTransitions: List[LocationTransition]) 
-extends AbstractMove(color, board) {
+abstract class RegularMove(color: Color, board: Board, game: Game, protected val locationTransitions: List[LocationTransition]) 
+extends AbstractMove(color, board, game) {
   
-  def this(color: Color, board: Board, from: Location, to: Location) =
-    this(color, board, List(LocationTransition(from, to)))
+  def this(color: Color, board: Board, game: Game, from: Location, to: Location) =
+    this(color, board, game, List(LocationTransition(from, to)))
   
   /**
    * Returns true when all locations are valid.
