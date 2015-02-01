@@ -3,7 +3,7 @@ package nl.axians.chess.movement
 import nl.axians.chess.Color._
 import nl.axians.chess.game.Board
 
-class Resign(color: Color, b: Board) extends AbstractMove(color: Color) {
+class Resign(color: Color, b: Board) extends AbstractMove(color, b) {
   
   /**
    * Resigning is always allowed.
