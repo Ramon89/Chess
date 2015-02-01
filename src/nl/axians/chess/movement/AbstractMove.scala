@@ -1,11 +1,10 @@
 package nl.axians.chess.movement
 
 import nl.axians.chess.Location
-//import nl.axians.chess.movement.constraints.Constraint
 import nl.axians.chess.game.Board
 import nl.axians.chess.game.Game
 import nl.axians.chess.game.InvalidMoveException
-import nl.axians.chess.Color._
+import nl.axians.chess.Color
 
 
 abstract class AbstractMove(protected val color: Color, protected val game: Game) {

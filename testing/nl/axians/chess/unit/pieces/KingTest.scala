@@ -1,12 +1,12 @@
 package nl.axians.chess.unit.pieces
 
 import org.scalatest.FlatSpec
-import nl.axians.chess.Color.WHITE
 import nl.axians.chess.Location
 import nl.axians.chess.game.Board
 import nl.axians.chess.game.DefaultBoard
 import nl.axians.chess.movement.piece.KingMove
 import nl.axians.chess.game.Game
+import nl.axians.chess.White
 
 class KingTest extends FlatSpec {
 
@@ -17,8 +17,8 @@ class KingTest extends FlatSpec {
 	b = b.movePiece(Location('E', 1), Location('E', 3))
 	val g = new Game(b)
 	// The king cannot move to a location that is occupied by its own color.
-    assert(!new KingMove(WHITE, g, Location('E', 3), Location('E', 2)).isValid)
-    assert(new KingMove(WHITE, g, Location('E', 3), Location('E', 4)).isValid)
-    assert(new KingMove(WHITE, g, Location('E', 3), Location('F', 4)).isValid)
+    assert(!new KingMove(White, g, Location('E', 3), Location('E', 2)).isValid)
+    assert(new KingMove(White, g, Location('E', 3), Location('E', 4)).isValid)
+    assert(new KingMove(White, g, Location('E', 3), Location('F', 4)).isValid)
   }
 }

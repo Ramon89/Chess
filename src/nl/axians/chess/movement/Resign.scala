@@ -1,6 +1,6 @@
 package nl.axians.chess.movement
 
-import nl.axians.chess.Color._
+import nl.axians.chess.Color
 import nl.axians.chess.game.Board
 import nl.axians.chess.game.Game
 

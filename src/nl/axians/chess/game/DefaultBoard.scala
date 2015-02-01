@@ -1,7 +1,6 @@
 package nl.axians.chess.game
 
 import nl.axians.chess.Location
-import nl.axians.chess.Color._
 import scala.collection.immutable.HashMap
 import nl.axians.chess.AbstractPiece
 import nl.axians.chess.Knight
@@ -10,6 +9,8 @@ import nl.axians.chess.Bishop
 import nl.axians.chess.Queen
 import nl.axians.chess.Rook
 import nl.axians.chess.Pawn
+import nl.axians.chess.White
+import nl.axians.chess.Black
 
 /**
  * This class represents the default starting board of a regular chess game.
@@ -26,38 +27,38 @@ class DefaultBoard(pieces: HashMap[Location, AbstractPiece]) extends Board {
    */
   def this() = 
     this(HashMap[Location, AbstractPiece](
-        Location('A', 1) -> Rook(WHITE),
-        Location('B', 1) -> Knight(WHITE),
-        Location('C', 1) -> Bishop(WHITE),
-        Location('D', 1) -> Queen(WHITE),
-        Location('E', 1) -> King(WHITE),
-        Location('F', 1) -> Bishop(WHITE),
-        Location('G', 1) -> Knight(WHITE),
-        Location('H', 1) -> Rook(WHITE),
-        Location('A', 2) -> Pawn(WHITE),
-        Location('B', 2) -> Pawn(WHITE),
-        Location('C', 2) -> Pawn(WHITE),
-        Location('D', 2) -> Pawn(WHITE),
-        Location('E', 2) -> Pawn(WHITE),
-        Location('F', 2) -> Pawn(WHITE),
-        Location('G', 2) -> Pawn(WHITE),
-        Location('H', 2) -> Pawn(WHITE),
-        Location('A', 7) -> Pawn(BLACK),
-        Location('B', 7) -> Pawn(BLACK),
-        Location('C', 7) -> Pawn(BLACK),
-        Location('D', 7) -> Pawn(BLACK),
-        Location('E', 7) -> Pawn(BLACK),
-        Location('F', 7) -> Pawn(BLACK),
-        Location('G', 7) -> Pawn(BLACK),
-        Location('H', 7) -> Pawn(BLACK),
-        Location('A', 8) -> Rook(BLACK),
-        Location('B', 8) -> Knight(BLACK),
-        Location('C', 8) -> Bishop(BLACK),
-        Location('D', 8) -> Queen(BLACK),
-        Location('E', 8) -> King(BLACK),
-        Location('F', 8) -> Bishop(BLACK),
-        Location('G', 8) -> Knight(BLACK),
-        Location('H', 8) -> Rook(BLACK)))
+        Location('A', 1) -> Rook(White),
+        Location('B', 1) -> Knight(White),
+        Location('C', 1) -> Bishop(White),
+        Location('D', 1) -> Queen(White),
+        Location('E', 1) -> King(White),
+        Location('F', 1) -> Bishop(White),
+        Location('G', 1) -> Knight(White),
+        Location('H', 1) -> Rook(White),
+        Location('A', 2) -> Pawn(White),
+        Location('B', 2) -> Pawn(White),
+        Location('C', 2) -> Pawn(White),
+        Location('D', 2) -> Pawn(White),
+        Location('E', 2) -> Pawn(White),
+        Location('F', 2) -> Pawn(White),
+        Location('G', 2) -> Pawn(White),
+        Location('H', 2) -> Pawn(White),
+        Location('A', 7) -> Pawn(Black),
+        Location('B', 7) -> Pawn(Black),
+        Location('C', 7) -> Pawn(Black),
+        Location('D', 7) -> Pawn(Black),
+        Location('E', 7) -> Pawn(Black),
+        Location('F', 7) -> Pawn(Black),
+        Location('G', 7) -> Pawn(Black),
+        Location('H', 7) -> Pawn(Black),
+        Location('A', 8) -> Rook(Black),
+        Location('B', 8) -> Knight(Black),
+        Location('C', 8) -> Bishop(Black),
+        Location('D', 8) -> Queen(Black),
+        Location('E', 8) -> King(Black),
+        Location('F', 8) -> Bishop(Black),
+        Location('G', 8) -> Knight(Black),
+        Location('H', 8) -> Rook(Black)))
   
   override def getPieces = pieces
   

@@ -1,9 +1,7 @@
 package nl.axians.chess
 
-import nl.axians.chess.Color._
-
 abstract class AbstractPiece(val color: Color, val algebraicNotationName: Char) {
-  override def toString = algebraicNotationName + (if(color == WHITE) "w" else "b")
+  override def toString = algebraicNotationName + (if(color == White) "w" else "b")
 }
 
 case class Pawn(c: Color) extends AbstractPiece(c, 'P')

@@ -1,7 +1,7 @@
 package nl.axians.chess.movement
 
 import nl.axians.chess.Location
-import nl.axians.chess.Color._
+import nl.axians.chess.Color
 import nl.axians.chess.game.Board
 import Math.abs
 import Math.max

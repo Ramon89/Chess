@@ -2,10 +2,12 @@ package nl.axians.chess.movement.piece
 
 import nl.axians.chess.Location
 import nl.axians.chess.game.Board
-import nl.axians.chess.Color._
+import nl.axians.chess.Color
 import nl.axians.chess.movement.RegularMove
 import nl.axians.chess.movement.SinglePiece
 import nl.axians.chess.game.Game
+import nl.axians.chess.White
+import nl.axians.chess.Black
 
 class PawnMove(c: Color, g: Game, from: Location, to: Location) extends RegularMove(c, g, from, to) with SinglePiece {
   
@@ -13,7 +15,7 @@ class PawnMove(c: Color, g: Game, from: Location, to: Location) extends RegularM
     var result = false
     
     // This value is used to fix the direction, i.e. white moves forwards while black moves backwards.
-    val d = if(c == WHITE) 1 else -1
+    val d = if(c == White) 1 else -1
 	// Pawns move vertically, but cannot attack that way.
     if(deltaX == 0) {
       // The 'to' location must be empty.
@@ -24,8 +26,8 @@ class PawnMove(c: Color, g: Game, from: Location, to: Location) extends RegularM
           case 1 => result = true
           // Double step is only valid if the pawn is at its initial location and the passing spot is empty.
           case 2 => result = board.isEmpty(Location(to.x, to.y + d)) && 
-              (c == WHITE && from.y == 2) || 
-              (c == BLACK && from.y == 7)
+              (c == White && from.y == 2) || 
+              (c == Black && from.y == 7)
           // All other steps are invalid.
           case _ => result = false
         }
