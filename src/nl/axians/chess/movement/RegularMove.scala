@@ -10,11 +10,11 @@ import nl.axians.chess.game.Game
 /**
  * This abstract class corresponds to a regular chess move where one or more pieces move to a different location.
  */
-abstract class RegularMove(color: Color, board: Board, game: Game, protected val locationTransitions: List[LocationTransition]) 
-extends AbstractMove(color, board, game) {
+abstract class RegularMove(color: Color, game: Game, protected val locationTransitions: List[LocationTransition]) 
+extends AbstractMove(color, game) {
   
-  def this(color: Color, board: Board, game: Game, from: Location, to: Location) =
-    this(color, board, game, List(LocationTransition(from, to)))
+  def this(color: Color, game: Game, from: Location, to: Location) =
+    this(color, game, List(LocationTransition(from, to)))
   
   /**
    * Returns true when all locations are valid.

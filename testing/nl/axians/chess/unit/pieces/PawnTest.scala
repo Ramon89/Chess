@@ -11,15 +11,14 @@ import nl.axians.chess.game.Game
 class PawnTest extends FlatSpec {
 
   "A pawn" should "be able to move a single step" in {
-    val b = new DefaultBoard
-    val g = new Game
+    val g = new Game(new DefaultBoard)
     
-    assert(new PawnMove(WHITE, b, g, Location('A', 2), Location('A', 3)).isValid)
-    assert(new PawnMove(WHITE, b, g, Location('A', 2), Location('A', 4)).isValid)
-    assert(!new PawnMove(WHITE, b, g, Location('A', 2), Location('A', 5)).isValid)
+    assert(new PawnMove(WHITE, g, Location('A', 2), Location('A', 3)).isValid)
+    assert(new PawnMove(WHITE, g, Location('A', 2), Location('A', 4)).isValid)
+    assert(!new PawnMove(WHITE, g, Location('A', 2), Location('A', 5)).isValid)
     
-    assert(new PawnMove(BLACK, b, g, Location('A', 7), Location('A', 6)).isValid)
-    assert(new PawnMove(BLACK, b, g, Location('A', 7), Location('A', 5)).isValid)
-    assert(!new PawnMove(BLACK, b, g, Location('A', 7), Location('A', 4)).isValid)    
+    assert(new PawnMove(BLACK, g, Location('A', 7), Location('A', 6)).isValid)
+    assert(new PawnMove(BLACK, g, Location('A', 7), Location('A', 5)).isValid)
+    assert(!new PawnMove(BLACK, g, Location('A', 7), Location('A', 4)).isValid)    
   }
 }

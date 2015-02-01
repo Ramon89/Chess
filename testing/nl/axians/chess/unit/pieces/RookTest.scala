@@ -12,16 +12,18 @@ class RookTest extends FlatSpec {
 
   "A rook" should "be able to move a straight lines" in {
     var b: Board = new DefaultBoard
-    val g = new Game
+    var g = new Game(b)
     
     // A pawn is in the way.
-    assert(!new RookMove(WHITE, b, g, Location('A', 1), Location('A', 3)).isValid)
+    assert(!new RookMove(WHITE, g, Location('A', 1), Location('A', 3)).isValid)
     // Move the pawn far away to make room for the rook.
     b = b.movePiece(Location('A', 2), Location('H', 3))
+    g = new Game(b)
     // The move should now be valid
-    assert(new RookMove(WHITE, b, g, Location('A', 1), Location('A', 3)).isValid)
+    assert(new RookMove(WHITE, g, Location('A', 1), Location('A', 3)).isValid)
     b = b.movePiece(Location('A', 1), Location('A', 3))
+    g = new Game(b)
     // Non-straight lines are invalid.
-    assert(!new RookMove(WHITE, b, g, Location('A', 3), Location('H', 4)).isValid)
+    assert(!new RookMove(WHITE, g, Location('A', 3), Location('H', 4)).isValid)
   }
 }

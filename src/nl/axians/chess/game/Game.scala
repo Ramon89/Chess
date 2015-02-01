@@ -2,15 +2,25 @@ package nl.axians.chess.game
 
 import scala.collection.mutable.MutableList
 
-class Game {
-  private val boardHistory = MutableList[Board]()
-  
-//  private var board: Board = new DefaultBoard
-//  
-//  private[game] def setBoard(board: Board) = this.board = board
+import nl.axians.chess.movement.AbstractMove
+
+class Game(initialBoard: Board) {
+  private val boardHistory = MutableList[Board](initialBoard)
   
   /**
    * Returns the current board of this game.
    */
   def getBoard = boardHistory.last
+  
+  
+  
+  
+  /**
+   * Executes the given move or throws an InvalidMoveException if the move is not valid.
+   */
+  def execute(move: AbstractMove): Unit = 
+    if(move.isValid)
+      boardHistory += move.execute
+    else
+      throw new InvalidMoveException("Move " + move + " is not valid") // TODO use i18n
 }

@@ -7,7 +7,7 @@ import nl.axians.chess.movement.RegularMove
 import nl.axians.chess.movement.SinglePiece
 import nl.axians.chess.game.Game
 
-class PawnMove(c: Color, b: Board, g: Game, from: Location, to: Location) extends RegularMove(c, b, g, from, to) with SinglePiece {
+class PawnMove(c: Color, g: Game, from: Location, to: Location) extends RegularMove(c, g, from, to) with SinglePiece {
   
   override def validate = {
     var result = false
@@ -17,13 +17,13 @@ class PawnMove(c: Color, b: Board, g: Game, from: Location, to: Location) extend
 	// Pawns move vertically, but cannot attack that way.
     if(deltaX == 0) {
       // The 'to' location must be empty.
-      if(b.isEmpty(to)) {
+      if(board.isEmpty(to)) {
         val steps = deltaY * d
         steps match {
           // Single step is valid.
           case 1 => result = true
           // Double step is only valid if the pawn is at its initial location and the passing spot is empty.
-          case 2 => result = b.isEmpty(Location(to.x, to.y + d)) && 
+          case 2 => result = board.isEmpty(Location(to.x, to.y + d)) && 
               (c == WHITE && from.y == 2) || 
               (c == BLACK && from.y == 7)
           // All other steps are invalid.

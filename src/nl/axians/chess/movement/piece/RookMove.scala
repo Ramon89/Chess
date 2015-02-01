@@ -7,7 +7,7 @@ import nl.axians.chess.movement.RegularMove
 import nl.axians.chess.movement.SinglePieceWithStraightLine
 import nl.axians.chess.game.Game
 
-class RookMove(c: Color, b: Board, g: Game, from: Location, to: Location) extends RegularMove(c, b, g: Game, from, to) 
+class RookMove(c: Color, g: Game, from: Location, to: Location) extends RegularMove(c, g: Game, from, to) 
 with SinglePieceWithStraightLine {
   
   override def validate = isHorizontalLine || isVerticalLine

@@ -12,13 +12,13 @@ class KingTest extends FlatSpec {
 
   "The king" should "be able to move like the queen, but with only one step" in {
     var b: Board = new DefaultBoard
-    val g = new Game
     
     // Move the king to a useful location.
 	b = b.movePiece(Location('E', 1), Location('E', 3))
+	val g = new Game(b)
 	// The king cannot move to a location that is occupied by its own color.
-    assert(!new KingMove(WHITE, b, g, Location('E', 3), Location('E', 2)).isValid)
-    assert(new KingMove(WHITE, b, g, Location('E', 3), Location('E', 4)).isValid)
-    assert(new KingMove(WHITE, b, g, Location('E', 3), Location('F', 4)).isValid)
+    assert(!new KingMove(WHITE, g, Location('E', 3), Location('E', 2)).isValid)
+    assert(new KingMove(WHITE, g, Location('E', 3), Location('E', 4)).isValid)
+    assert(new KingMove(WHITE, g, Location('E', 3), Location('F', 4)).isValid)
   }
 }
