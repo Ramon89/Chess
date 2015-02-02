@@ -106,7 +106,7 @@ trait SinglePieceWithStraightLine extends SinglePiece {
   override def defaultValidations = (() => noObstacles)::super.defaultValidations
   
   /**
-   * All moves with a single piece with a straight line can attack where they move.
+   * All moves with a single piece with a straight line can by default attack where they move.
    */
   override def isAttack = true
 }
