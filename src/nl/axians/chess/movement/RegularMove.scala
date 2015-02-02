@@ -11,7 +11,7 @@ import nl.axians.chess.game.Game
  * This abstract class corresponds to a regular chess move where one or more pieces move to a different location.
  */
 abstract class RegularMove(color: Color, game: Game, protected val locationTransitions: List[LocationTransition]) 
-extends AbstractMove(color, game) {
+extends Move(color, game) {
   
   def this(color: Color, game: Game, from: Location, to: Location) =
     this(color, game, List(LocationTransition(from, to)))
@@ -104,4 +104,9 @@ trait SinglePieceWithStraightLine extends SinglePiece {
    * For all moves with a single piece with a straight line, there can be no obstacles on the path.
    */
   override def defaultValidations = (() => noObstacles)::super.defaultValidations
+  
+  /**
+   * All moves with a single piece with a straight line can attack where they move.
+   */
+  override def isAttack = true
 }

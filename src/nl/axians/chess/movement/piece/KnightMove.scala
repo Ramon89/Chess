@@ -17,4 +17,6 @@ class KnightMove(c: Color, g: Game, from: Location, to: Location) extends Regula
     val absDeltaY = abs(deltaY)    
     max(absDeltaX, absDeltaY) == 2 && min(absDeltaX, absDeltaY) == 1
   }
+  
+  override def isAttack = true
 }

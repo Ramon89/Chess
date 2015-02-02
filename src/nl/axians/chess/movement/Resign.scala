@@ -4,12 +4,14 @@ import nl.axians.chess.Color
 import nl.axians.chess.game.Board
 import nl.axians.chess.game.Game
 
-class Resign(color: Color, game: Game) extends AbstractMove(color, game) {
+class Resign(color: Color, game: Game) extends Move(color, game) {
   
   /**
    * Resigning is always allowed.
    */
   override def validate = true
+  
+  override def isAttack = false
   
   override def execute = board // TODO what else? Tell the game instance that the game is over?
 }

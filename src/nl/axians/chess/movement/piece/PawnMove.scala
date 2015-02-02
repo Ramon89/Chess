@@ -13,32 +13,37 @@ class PawnMove(c: Color, g: Game, from: Location, to: Location) extends RegularM
   
   override def validate = {
     var result = false
-    
     // This value is used to fix the direction, i.e. white moves forwards while black moves backwards.
     val d = if(c == White) 1 else -1
+    val steps = deltaY * d
 	// Pawns move vertically, but cannot attack that way.
-    if(deltaX == 0) {
+    if(isVerticalLine) {
       // The 'to' location must be empty.
       if(board.isEmpty(to)) {
-        val steps = deltaY * d
         steps match {
           // Single step is valid.
           case 1 => result = true
           // Double step is only valid if the pawn is at its initial location and the passing spot is empty.
           case 2 => result = board.isEmpty(Location(to.x, to.y + d)) && 
-              (c == White && from.y == 2) || 
-              (c == Black && from.y == 7)
+              (color == White && from.y == 2) || 
+              (color == Black && from.y == 7)
           // All other steps are invalid.
           case _ => result = false
         }
       }
-    } else {
-      // The only possibility is the capture of a piece of the opponent.
-      result = false // TODO implement this
+    } else if(isDiagonalLine) {
+      // The only possibility left is the capture of a piece of the opponent.
+      result = board.getPieceAt(to) match {
+        case Some(piece) => steps == 1 && piece.color != color // The piece to attack must be the opponent's.
+        case None        => false // If there is no piece, a diagonal move is invalid.
+      }
     }
     
     result
   }
   
-//  override def doApply(b: Board) = 0 // TODO do the magic! Which in this case is to simply move the piece
+  /**
+   * A Pawn move is an attack if it is diagonal.
+   */
+  override def isAttack = isDiagonalLine
 }

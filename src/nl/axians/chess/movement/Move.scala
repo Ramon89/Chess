@@ -6,8 +6,7 @@ import nl.axians.chess.game.Game
 import nl.axians.chess.game.InvalidMoveException
 import nl.axians.chess.Color
 
-
-abstract class AbstractMove(protected val color: Color, protected val game: Game) {
+abstract class Move(protected val color: Color, protected val game: Game) {
 
   protected val board = game.getBoard
   
@@ -27,6 +26,11 @@ abstract class AbstractMove(protected val color: Color, protected val game: Game
    * Executes this move and returns the board that is the result of this move.
    */
   def execute: Board
+  
+  /**
+   * Returns whether this move can be an attack.
+   */
+  def isAttack: Boolean
   
   /**
    * Returns whether this move is valid.

@@ -3,6 +3,7 @@ package nl.axians.chess.game
 import nl.axians.chess.Location
 import scala.collection.immutable.HashMap
 import nl.axians.chess.AbstractPiece
+import nl.axians.chess.Color
 
 /**
  * 
@@ -41,28 +42,40 @@ abstract class Board {
     }
   
   /**
+   * Sets the given piece on the given location.
+   */
+  def setPiece(piece: AbstractPiece, location: Location) = newInstance(pieces + Tuple2(location, piece))
+  
+  /**
    * Returns the locations between the given two locations. The two given locations must form a straight line.
    */
-  def getLocationsBetween(l1: Location, l2: Location): List[Location] = {
-    for {
-      l <- getLocations
-      if l isBetween (l1, l2)
-    } yield l
-  }
+  def getLocationsBetween(l1: Location, l2: Location): List[Location] = 
+    getLocations.filter(l => l isBetween (l1, l2))
   
   /**
    * Returns the locations between the given locations for which a function holds (returns true).
    */
   def getLocationsBetween(l1: Location, l2: Location, lambda: Location => Boolean): List[Location] =
-    for{
-      l <- getLocationsBetween(l1, l2)
-      if lambda(l)
-    } yield l
+    getLocationsBetween(l1, l2).filter(l => lambda(l))
     
   /**
    * Returns the locations between the given locations that are occupied by a piece of any color.
    */
   def getOccupiedLocationsBetween(l1: Location, l2: Location) = getLocationsBetween(l1, l2, l => !isEmpty(l))
+  
+  /**
+   * Returns a list of locations that are occupied by pieces of the given color.
+   */
+  def getOccupiedLocations(color: Color): List[Location] =
+    getLocations.filter(l => getPieceAt(l) match {
+      case Some(piece) => piece.color == color
+      case None        => false
+    })
+  
+  /**
+   * Returns a list of locations that are not occupied by pieces of the given color.
+   */
+  def getUnoccupiedLocations(color: Color) = getLocations.diff(getOccupiedLocations(color))
   
   /************************************************** ABSTRACT METHODS **************************************************/
   
