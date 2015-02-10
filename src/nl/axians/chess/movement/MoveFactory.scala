@@ -26,15 +26,15 @@ object MoveFactory {
     null
   }
   
-  def get(game: Game, color: Color, from: Location, to: Location) = {
+  def get(game: Game, from: Location, to: Location): Move = {
     game.getBoard.getPieceAt(from) match {
 
-      case Some(p: Rook)   => new RookMove(color, game, from, to)
-      case Some(p: Knight) => new KnightMove(color, game, from, to)
-      case Some(p: Bishop) => new BishopMove(color, game, from, to)
-      case Some(p: Queen)  => new QueenMove(color, game, from, to)
-      case Some(p: King)   => new KingMove(color, game, from, to)
-      case Some(p: Pawn)   => 
+      case Some(Rook(color))   => new RookMove(color, game, from, to)
+      case Some(Knight(color)) => new KnightMove(color, game, from, to)
+      case Some(Bishop(color)) => new BishopMove(color, game, from, to)
+      case Some(Queen(color))  => new QueenMove(color, game, from, to)
+      case Some(King(color))   => new KingMove(color, game, from, to)
+      case Some(Pawn(color))   => 
         if(abs(from.y - to.y) == 2) 
           new DoubleStepPawnMove(color, game, from, to)
         else if(from.x != to.x) 

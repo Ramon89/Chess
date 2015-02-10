@@ -12,7 +12,6 @@ import nl.axians.chess.game.Game
  */
 abstract class RegularMove(color: Color, game: Game, protected val locationTransitions: List[LocationTransition]) 
 extends Move(color, game) {
-  
   def this(color: Color, game: Game, from: Location, to: Location) =
     this(color, game, List(LocationTransition(from, to)))
   
@@ -20,13 +19,13 @@ extends Move(color, game) {
    * Returns true when all locations are valid.
    */
   private def locationsAreValid = 
-    locationTransitions.forall(lt => board.isValidLocation(lt.from) && board.isValidLocation(lt.to))
+    locationTransitions.forall(lt => game.getBoard.isValidLocation(lt.from) && game.getBoard.isValidLocation(lt.to))
   
   /**
    * Returns true when all locations are not occupied by pieces of the same color.
    */
   private def targetLocationsAreUnoccupied = 
-    locationTransitions.forall(lt => board.getPieceAt(lt.to) match {
+    locationTransitions.forall(lt => game.getBoard.getPieceAt(lt.to) match {
         case None        => true // If no piece is on a location, all it well.
         case Some(piece) => piece.color != color // All is well only if there is an opponents piece on a location.
     })
@@ -34,12 +33,12 @@ extends Move(color, game) {
   /**
    * Returns true if the current move does not cause chess.
    */
-  private def moveDoesNotCauseChess = true // TODO use execute to get the resulting board
+  private def moveDoesNotCauseChess = !(new Game(execute).isInCheck(color)) // TODO to be properly tested
   
   /**
    * A regular move is executed by applying all location transitions (i.e. moving all pieces).
    */
-  override def execute = locationTransitions.foldLeft(board)((b, lt) => b.movePiece(lt.from, lt.to))
+  override def execute = locationTransitions.foldLeft(game.getBoard)((b, lt) => b.movePiece(lt.from, lt.to))
   
   /**
    * For all regular moves, all locations must be valid and the target locations must not be occupied by the same 
@@ -93,12 +92,11 @@ trait SinglePieceWithStraightLine extends SinglePiece {
    * The number of steps that are taken. E.g. a bishop moving to a diagonally adjacent location performs one step. 
    */
   protected val steps = max(abs(deltaX), abs(deltaY))
-  
+ 
   /**
    * Are there any obstacles (i.e. pieces of any color) on the straight line?
    */
-  protected val noObstacles =
-    board.getOccupiedLocationsBetween(locationTransitions(0).from, locationTransitions(0).to) == Nil
+  protected def noObstacles = game.getBoard.getOccupiedLocationsBetween(locationTransitions(0).from, locationTransitions(0).to) == Nil
   
   /**
    * For all moves with a single piece with a straight line, there can be no obstacles on the path.

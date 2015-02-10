@@ -26,6 +26,14 @@ abstract class Board {
       throw new InvalidLocationException("Invalid location " + l + " for this Board") // TODO use I18N
     else
       None
+      
+  /**
+   * Returns whether there is a piece of the given color on the given location.
+   */
+  def isPieceOfColorAt(l: Location, c: Color) = getPieceAt(l) match {
+      case Some(piece) => piece.color == c
+      case None        => false
+    }
    
   /**
    * Moves the piece on the given location to another location, creating a new Board instance.

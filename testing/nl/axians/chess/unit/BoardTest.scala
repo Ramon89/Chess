@@ -7,11 +7,15 @@ import nl.axians.chess.game.InvalidLocationException
 import nl.axians.chess.game.InvalidMoveException
 import nl.axians.chess.White
 import nl.axians.chess.Black
+import nl.axians.chess.game.Board
 
 class BoardTest extends FlatSpec {
   "A board" should "allow moving a piece" in {
-    val b = new DefaultBoard
-    b.movePiece(Location('A', 1), Location('A', 2))
+    var b: Board = new DefaultBoard
+    b = b.movePiece(Location('A', 1), Location('A', 2))
+    
+    assert(b.isEmpty(Location('A', 1)))
+    assert(!b.isEmpty(Location('A', 2)))
   }
   
   it should "produce InvalidLocationException if either the 'from' or the 'to' location is not valid" in {

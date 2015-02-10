@@ -1,13 +1,14 @@
 package nl.axians.chess.game
 
 import scala.collection.mutable.MutableList
-import nl.axians.chess.movement.Move
-import nl.axians.chess.White
 import nl.axians.chess.Color
-import nl.axians.chess.movement.MoveFactory
+import nl.axians.chess.King
 import nl.axians.chess.Location
 import nl.axians.chess.Pawn
-import nl.axians.chess.King
+import nl.axians.chess.White
+import nl.axians.chess.movement.Move
+import nl.axians.chess.movement.MoveFactory
+import nl.axians.chess.Black
 
 class Game(initialBoard: Board) {
   private val boardHistory = MutableList[Board](initialBoard)
@@ -23,14 +24,14 @@ class Game(initialBoard: Board) {
   /**
    * Returns a list of possible moves for the given color.
    */
-  def getPossibleMoves(color: Color) = { // TODO this has not been tested!
+  def getPossibleMoves(color: Color): List[Move] = {
     val occupiedLocations = getBoard.getOccupiedLocations(color)
     val unOccupiedLocations = getBoard.getUnoccupiedLocations(color)
     
     val moves = for {
       from <- occupiedLocations
       to   <- unOccupiedLocations
-    } yield MoveFactory.get(this, color, from, to)
+    } yield MoveFactory.get(this, from, to)
     
     moves.filter(m => m.isValid)
   }
@@ -39,12 +40,22 @@ class Game(initialBoard: Board) {
    * Returns whether the given location is currently not under attack by a piece of the opponent.
    */
   def isSafe(location: Location, color: Color) = {
-    val opponentsLocations = getBoard.getOccupiedLocations(color.opponent)
-    val game = new Game(getBoard.setPiece(Pawn(color), location))
-    val moves = for (from <- opponentsLocations) yield MoveFactory.get(game, color.opponent, from, location)
-    val validAttackingMoves = moves.filter(m => m.isAttack && m.isValid)
+    if(location == getKingsLocation(color.opponent)) {
+      true
+    } else {
+      val opponentsLocations = getBoard.getOccupiedLocations(color.opponent)
+        
+      val game = 
+          if(getBoard.isPieceOfColorAt(location, color))
+            this 
+          else 
+            new Game(getBoard.setPiece(Pawn(color), location))
     
-    validAttackingMoves.size == 0
+	    val moves = for (from <- opponentsLocations) yield MoveFactory.get(game, from, location)
+	    val validAttackingMoves = moves.filter(m => m.isAttack && m.isValid)
+	    
+	    validAttackingMoves.size == 0
+    }
   }
   
   /**
@@ -66,15 +77,18 @@ class Game(initialBoard: Board) {
   /**
    * Checks whether the given color is in check mate.
    */
-  def isInCheckMate(color: Color) = false
+  def isInCheckMate(color: Color) = isInCheck(color) && getPossibleMoves(color) == Nil
   
   /**
    * Executes the given move or throws an InvalidMoveException if the move is not valid.
    */
-  def execute(move: Move): Unit = 
-    if(move.isValid) {
+  def execute(color: Color, move: Move): Unit =
+    if(color != currentTurn)
+      throw new InvalidMoveException("It's not " + color + "'s turn") // TODO use i18n
+    else if(!move.isValid)
+      throw new InvalidMoveException("Move " + move + " is not valid") // TODO use i18n
+    else {
       boardHistory += move.execute
       currentTurn = currentTurn.opponent
-    } else
-      throw new InvalidMoveException("Move " + move + " is not valid") // TODO use i18n
+    }
 }

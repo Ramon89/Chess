@@ -7,13 +7,11 @@ import nl.axians.chess.game.InvalidMoveException
 import nl.axians.chess.Color
 
 abstract class Move(protected val color: Color, protected val game: Game) {
-
-  protected val board = game.getBoard
   
   /**
    * Returns whether this move is valid and can be executed.
    */
-  def isValid = defaultValidations.forall(function => function()) && validate
+  def isValid = validate && defaultValidations.forall(function => function())
   
   /**
    * Returns a list of functions that are to be called by default on validation.

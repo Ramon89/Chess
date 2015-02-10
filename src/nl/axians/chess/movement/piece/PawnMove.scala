@@ -34,7 +34,7 @@ abstract class PawnMove(c: Color, g: Game, from: Location, to: Location) extends
  * The most common pawn move where the pawn moves one single step forwards.
  */
 class SingleStepPawnMove(c: Color, g: Game, from: Location, to: Location) extends PawnMove(c, g, from, to) {
-  override def validate = board.isEmpty(to) && isVerticalLine && absStepsY == 1
+  override def validate = game.getBoard.isEmpty(to) && isVerticalLine && absStepsY == 1
   override def isAttack = false
 }
 
@@ -45,7 +45,7 @@ class DoubleStepPawnMove(c: Color, g: Game, from: Location, to: Location) extend
 with SinglePieceWithStraightLine {
   override def validate = 
     ((color == White && from.y == 2) || (color == Black && from.y == 7)) && 
-    board.isEmpty(to) && isVerticalLine && absStepsY == 2
+    game.getBoard.isEmpty(to) && isVerticalLine && absStepsY == 2
     
   override def isAttack = false
 }
@@ -54,7 +54,7 @@ with SinglePieceWithStraightLine {
  * The diagonal pawn move that is an attack.
  */
 class PawnAttack(c: Color, g: Game, from: Location, to: Location) extends PawnMove(c, g, from, to) {
-  override def validate = board.getPieceAt(to) match {
+  override def validate = game.getBoard.getPieceAt(to) match {
 	case Some(piece) => isDiagonalLine && absStepsY == 1 && piece.color != color
 	case None        => false
   }
