@@ -53,17 +53,17 @@ class GameTest extends FlatSpec {
     val whiteQueenMove = MoveFactory.get(g, Location('D', 1), Location('H', 5))
     // It is not yet black's turn.
     intercept[InvalidMoveException] {
-	  g.execute(Black, blackPawnMove);
+	  g.execute(blackPawnMove);
     }
     
     // This should cause no trouble.
-    g.execute(White, whitePawnMove)
+    g.execute(whitePawnMove)
     
     // Now black can move his pawn.
-    g.execute(Black, blackPawnMove);
+    g.execute(blackPawnMove);
     
     // White's turn again.
-    g.execute(White, whiteQueenMove)
+    g.execute(whiteQueenMove)
   }
   
 //  it should "tell whether a player is in check mate" in {

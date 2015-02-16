@@ -2,8 +2,16 @@ package nl.axians.chess
 
 import nl.axians.chess.game.DefaultBoard
 import nl.axians.chess.movement.piece.PawnMove
+import nl.axians.chess.gui.Gui
+import nl.axians.chess.game.Game
 
 object Start extends App {
+  
+  val game = new Game(new DefaultBoard)
+  game.addListener(Gui)
+  Gui.setGame(game)
+  Gui.startup(Array(""))
+  
   /*val b = new DefaultBoard
   val m1 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 3))
   val m2 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 4))

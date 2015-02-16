@@ -9,11 +9,23 @@ import nl.axians.chess.White
 import nl.axians.chess.movement.Move
 import nl.axians.chess.movement.MoveFactory
 import nl.axians.chess.Black
+import nl.axians.chess.GameListener
+import nl.axians.chess.GameListener
+import scala.collection.mutable.ListBuffer
 
 class Game(initialBoard: Board) {
   private val boardHistory = MutableList[Board](initialBoard)
+  private val listeners = ListBuffer[GameListener]()
   private var currentTurn: Color = White
+ 
+  /**
+   * Adds a listener to this game.
+   */
+  def addListener(l: GameListener) = listeners += l
   
+  /**
+   * Returns the color of the player who's turn it is.
+   */
   def getCurrentTurn = currentTurn
   
   /**
@@ -82,13 +94,28 @@ class Game(initialBoard: Board) {
   /**
    * Executes the given move or throws an InvalidMoveException if the move is not valid.
    */
-  def execute(color: Color, move: Move): Unit =
-    if(color != currentTurn)
-      throw new InvalidMoveException("It's not " + color + "'s turn") // TODO use i18n
+  def execute(move: Move): Unit =
+    if(move.color != currentTurn)
+      throw new InvalidMoveException("It's not " + move.color + "'s turn") // TODO use i18n
     else if(!move.isValid)
       throw new InvalidMoveException("Move " + move + " is not valid") // TODO use i18n
     else {
       boardHistory += move.execute
       currentTurn = currentTurn.opponent
+      val inCheck = isInCheck(currentTurn)
+      val checkMate = inCheck && isInCheckMate(currentTurn)
+      listeners.foreach(l => {
+        l.turnChanged(currentTurn)
+        l.boardChanged(getBoard)
+        
+        if(checkMate)
+          l.checkMate(currentTurn)
+        else if(inCheck)
+          l.check(currentTurn)
+          
+        // TODO inform win/lose
+        // TODO inform draw
+        // TODO inform resign
+      })
     }
 }

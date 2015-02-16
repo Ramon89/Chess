@@ -6,7 +6,7 @@ import nl.axians.chess.game.Game
 import nl.axians.chess.game.InvalidMoveException
 import nl.axians.chess.Color
 
-abstract class Move(protected val color: Color, protected val game: Game) {
+abstract class Move(val color: Color, protected val game: Game) {
   
   /**
    * Returns whether this move is valid and can be executed.
