@@ -1,31 +1,23 @@
 package nl.axians.chess
 
 import nl.axians.chess.game.DefaultBoard
-import nl.axians.chess.movement.piece.PawnMove
-import nl.axians.chess.gui.Gui
 import nl.axians.chess.game.Game
+import nl.axians.chess.gui.Gui
 
 object Start extends App {
   
+//  val game = new Game(new DefaultBoard)
+//  game.addListener(Gui)
+//  Gui.setView(Black)
+//  Gui.setGame(game)
+//  Gui.startup(Array(""))
+  
   val game = new Game(new DefaultBoard)
-  game.addListener(Gui)
-  Gui.setGame(game)
-  Gui.startup(Array(""))
+  val gui = new Gui(game, White)
+  game.addListener(gui)
+  gui.startup(Array(""))
   
-  /*val b = new DefaultBoard
-  val m1 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 3))
-  val m2 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 4))
-  val m3 = new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 6))
-  val m4 = new PawnMove(new Pawn(BLACK), Location('A', 7), Location('A', 5))
-  
-  // False ones
-  val m5 = new PawnMove(new Pawn(BLACK), Location('A', 2), Location('A', 3))
-  val m6 = new PawnMove(new Pawn(WHITE), Location('A', 2), Location('A', 5))
-  
-  println(m1.isValid(b))
-  println(m2.isValid(b))
-  println(m3.isValid(b))
-  println(m4.isValid(b))
-  println(m5.isValid(b))
-  println(m6.isValid(b))*/
+  val gui2 = new Gui(game, Black)
+  game.addListener(gui2)
+  gui2.startup(Array(""))
 }

@@ -22,20 +22,20 @@ import nl.axians.chess.game.InvalidMoveException
 /**
  * This is the GUI of the Chess application.
  */
-object Gui extends SimpleSwingApplication with GameListener {
+class Gui(game: Game, player: nl.axians.chess.Color) extends SimpleSwingApplication with GameListener {
   class FlowPanelContainer(val panel: FlowPanel, val background: Color, val location: Location)
   
-//  private val board: HashMap[Location, FlowPanel] = new HashMap
   private val board: HashMap[Location, FlowPanelContainer] = new HashMap
   private val highlightColor = new Color(255, 255, 200)
   private val lightColor = new Color(240, 240, 240)
   private val darkColor = new Color(170, 170, 170)
-  private var game: Game = null
-  private var firstClick: Location = null
+  private var firstClick: Option[Location] = None
   
   private val gridPanel = new GridPanel(8, 8) {
-      for(y <- (1 to 8).reverse; x <- 'A' to 'H') {
-        val b = if((x + (y % 2)) % 2 == 0) lightColor else darkColor
+    val rangeY = if(player == White) (1 to 8).reverse else 1 to 8
+    val rangeX = if(player == White) 'A' to 'H' else ('A' to 'H').reverse
+    for(y <- rangeY; x <- rangeX) {
+        val b = if((x + (y % 2)) % 2 == 0) darkColor else lightColor
         val p = new FlowPanel() {
           preferredSize_=(new Dimension(70, 70))
           background = b
@@ -50,13 +50,11 @@ object Gui extends SimpleSwingApplication with GameListener {
       }
     }
   
-  def setGame(game: Game) = this.game = game
-  
   /**
    * Creates all necessary gui components.
    */
   def top = new MainFrame {
-    title = "Hello, World!"
+    title = "Chess"
     contents = gridPanel
 
     setBoard(new DefaultBoard)
@@ -67,21 +65,21 @@ object Gui extends SimpleSwingApplication with GameListener {
    */
   private def onClick(l: Location) = {
     val clickedPiece = game.getBoard.getPieceAt(l)
-    if(firstClick == null && clickedPiece != None && clickedPiece.get.color == game.getCurrentTurn) {
-      firstClick = l
+    if(firstClick == None && clickedPiece != None && clickedPiece.get.color == game.getCurrentTurn) {
+      firstClick = Some(l)
       board.values.foreach(panelContainer => resetBackground(panelContainer.location))
       highlight(l)
-    } else if(firstClick != null) {
+    } else if(firstClick != None) {
       try {
-        val move = MoveFactory.get(game, firstClick, l)
+        val move = MoveFactory.get(game, firstClick.get, l)
         game.execute(move)
         highlight(l)
-        firstClick = null
+        firstClick = None
       } catch {
         case e: InvalidMoveException => {
-          resetBackground(firstClick)
+          resetBackground(firstClick.get)
           resetBackground(l)
-          firstClick = null
+          firstClick = None
         }
       }
     }
