@@ -16,8 +16,16 @@ import scala.collection.mutable.ListBuffer
 class Game(initialBoard: Board) {
   private val boardHistory = MutableList[Board](initialBoard)
   private val listeners = ListBuffer[GameListener]()
-  private var currentTurn: Color = White
+  private var currentTurn: Option[Color] = None
  
+  /**
+   * Starts this game, notifying all listeners.
+   */
+  def start = {
+    currentTurn = Some(White)
+    listeners.foreach(l => l.turnChanged(currentTurn.get))
+  }
+  
   /**
    * Adds a listener to this game.
    */
@@ -26,7 +34,10 @@ class Game(initialBoard: Board) {
   /**
    * Returns the color of the player who's turn it is.
    */
-  def getCurrentTurn = currentTurn
+  def getCurrentTurn = currentTurn match {
+    case Some(color) => color
+    case None        => throw new IllegalStateException("Game was not started yet") // TODO i18n
+  }
   
   /**
    * Returns the current board of this game.
@@ -95,23 +106,25 @@ class Game(initialBoard: Board) {
    * Executes the given move or throws an InvalidMoveException if the move is not valid.
    */
   def execute(move: Move): Unit =
-    if(move.color != currentTurn)
+    if(currentTurn == None)
+      throw new IllegalStateException("Game was not started yet")
+    else if(move.color != currentTurn.get)
       throw new InvalidMoveException("It's not " + move.color + "'s turn") // TODO use i18n
     else if(!move.isValid)
       throw new InvalidMoveException("Move " + move + " is not valid") // TODO use i18n
     else {
       boardHistory += move.execute
-      currentTurn = currentTurn.opponent
-      val inCheck = isInCheck(currentTurn)
-      val checkMate = inCheck && isInCheckMate(currentTurn)
+      currentTurn = Some(currentTurn.get.opponent)
+      val inCheck = isInCheck(currentTurn.get)
+      val checkMate = inCheck && isInCheckMate(currentTurn.get)
       listeners.foreach(l => {
-        l.turnChanged(currentTurn)
+        l.turnChanged(currentTurn.get)
         l.boardChanged(getBoard)
         
         if(checkMate)
-          l.checkMate(currentTurn)
+          l.checkMate(currentTurn.get)
         else if(inCheck)
-          l.check(currentTurn)
+          l.check(currentTurn.get)
           
         // TODO inform win/lose
         // TODO inform draw
