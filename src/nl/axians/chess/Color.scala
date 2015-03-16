@@ -1,5 +1,8 @@
 package nl.axians.chess
 
+/**
+ * Represents the color of a player.
+ */
 abstract class Color {
   
   /**

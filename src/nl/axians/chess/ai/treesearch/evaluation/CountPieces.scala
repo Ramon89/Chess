@@ -1,4 +1,4 @@
-package nl.axians.chess.ai.minimax.evaluation
+package nl.axians.chess.ai.treesearch.evaluation
 
 import nl.axians.chess.game.Board
 import nl.axians.chess.Color
